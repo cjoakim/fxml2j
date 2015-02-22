@@ -13,6 +13,7 @@ class FxmlParser extends EventEmitter
     @xml           = ('' + xml_str).toString().trim()
     @options       = opts
     @tag_stack     = []
+    @controller    = undefined
     @ui_components = []
     @component_num = 0
     @counter_hash  = new CounterHash()
@@ -39,6 +40,8 @@ class FxmlParser extends EventEmitter
         # ignore tags with an embedded dot 
       else
         @counter_hash.increment(node_obj.name)
+        if node_obj.attributes['fx:controller']
+          @controller = node_obj.attributes['fx:controller']
         if node_obj.attributes['fx:id']
           fxid = node_obj.attributes['fx:id']
           @component_num = @component_num + 1
@@ -91,6 +94,7 @@ class FxmlParser extends EventEmitter
   finish: =>
     event_obj = {}
     #event_obj.tags_found    = @counter_hash.sorted_tuples()
+    event_obj.controller    = @controller
     event_obj.ui_components = @ui_components
     event_obj.error         = @error
     this.emit('done', event_obj)
