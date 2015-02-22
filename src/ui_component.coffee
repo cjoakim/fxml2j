@@ -4,14 +4,24 @@ sprintf = require("sprintf-js").sprintf
 
 class UIComponent
 
-  constructor: (num, tag, fxid) ->
-    @num      = num
-    @lc_tag   = tag
-    @fxml_tag = undefined
-    @fxid     = fxid
+  constructor: (num, tag, fxid, sax_attrs) ->
+    @num        = num
+    @lc_tag     = tag
+    @fxml_tag   = undefined
+    @fxid       = fxid
+    @on         = undefined
+    @on_method  = undefined
+    @event_type = undefined
 
-  to_string: ->
-    sprintf("UIComponent; num: %s  lc_tag: %s  fxml_tag: %s  fxid: %s", @num, @lc_tag, @fxml_tag, @fxid)
+    attr_names = Object.getOwnPropertyNames(sax_attrs)
+    for attr_name in attr_names
+      if attr_name.indexOf("on") == 0
+        @on = attr_name
+        @on_method = sax_attrs[attr_name].slice(1)
+        if attr_name.indexOf("onMouse") == 0
+          @event_type = 'MouseEvent'
+        else
+          @event_type = 'ActionEvent'
 
 
 root = exports ? this

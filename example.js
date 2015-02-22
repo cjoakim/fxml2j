@@ -17,7 +17,8 @@
 
   fxml.on("done", (function(_this) {
     return function(event_obj) {
-      return console.log('done');
+      console.log('done');
+      return console.log("Fxml2j.parse obj:\n" + JSON.stringify(event_obj, null, 2));
     };
   })(this));
 

@@ -12,6 +12,11 @@
     "tableview":   "TableView",
     "tabpane":     "Tabpane",
     "textfield":   "TextField"
+  },
+
+  "eventMappings": {
+    "default":     "ActionEvent",
+    "combobox":    "MouseEvent"
   }
 }
 

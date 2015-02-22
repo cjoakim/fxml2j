@@ -36,17 +36,18 @@ class FxmlParser extends EventEmitter
       @curr_tag  = node_obj.name
       @curr_text = ''
 
-      if node_obj.name.indexOf('.') > 0
-        # ignore tags with an embedded dot 
-      else
+      if node_obj.attributes['fx:controller']
         @counter_hash.increment(node_obj.name)
-        if node_obj.attributes['fx:controller']
-          @controller = node_obj.attributes['fx:controller']
-        if node_obj.attributes['fx:id']
-          fxid = node_obj.attributes['fx:id']
-          @component_num = @component_num + 1
-          c = new UIComponent(@component_num, node_obj.name, fxid)
-          @ui_components.push(c)
+        @controller = node_obj.attributes['fx:controller']
+        c = new UIComponent(@component_num, node_obj.name, fxid, node_obj.attributes)
+        @ui_components.push(c)
+
+      if node_obj.attributes['fx:id']
+        @counter_hash.increment(node_obj.name)
+        fxid = node_obj.attributes['fx:id']
+        @component_num = @component_num + 1
+        c = new UIComponent(@component_num, node_obj.name, fxid, node_obj.attributes)
+        @ui_components.push(c)
     )
 
     @sax_stream.on("closetag", (tag) =>

@@ -14,5 +14,5 @@ console.log("config_obj:\n" + JSON.stringify(config_obj, null, 2))
 fxml = new Fxml2j(config_obj)
 fxml.on "done", (event_obj) =>
   console.log('done')
-  #console.log("Fxml2j.parse obj:\n" + JSON.stringify(event_obj, null, 2))
+  console.log("Fxml2j.parse obj:\n" + JSON.stringify(event_obj, null, 2))
 fxml.parse_and_generate()
