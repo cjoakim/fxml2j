@@ -1,0 +1,43 @@
+{
+  "name":    "fxml2j",
+  "version": "0.0.1",
+  "description": "JavaFX FXML parser and corresponding Java code generator.",
+  "author":  "Chris Joakim",
+  "main":    "main.js",
+  "licenses": [
+    {
+      "type": "ISC",
+      "url":  "https://github.com/cjoakim/counter-hash-js/blob/master/LICENSE"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cjoakim/fxml2j.git"
+  },
+  "homepage": "https://github.com/cjoakim/fxml2j",
+  "keywords": [
+    "javafx",
+    "fxml",
+    "java",
+    "code",
+    "generator"
+  ],
+  "dependencies": {
+    "sb-js": "~0.1.1",
+    "sprintf-js": "~1.0.2",
+  },
+  "devDependencies": {
+    "assert": "^1.3.0",
+    "grunt": "~0.4.5",
+    "grunt-contrib-coffee": "~0.13.0",
+    "grunt-contrib-copy": "~0.8.0",
+    "grunt-mocha-istanbul": "~2.3.1",
+    "istanbul": "~0.3.6",
+    "mocha": "~2.1.0",
+    "should": "~5.0.0",
+    "sinon": "~1.12.2"
+  },
+  "scripts": {
+    "test": "npm test "
+  }
+}
