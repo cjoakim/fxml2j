@@ -83,10 +83,6 @@ public class ExampleController {
 
     }
 
-    @FXML public void postAllBtnClicked(ActionEvent e) {
-
-    }
-
     @FXML public void partsTableViewClicked(ActionEvent e) {
 
     }
