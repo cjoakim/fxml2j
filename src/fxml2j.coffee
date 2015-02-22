@@ -8,6 +8,7 @@ FxmlParser    = require("./fxml_parser").FxmlParser
 UIComponent   = require("./ui_component").UIComponent
 JavaGenerator = require("./java_generator").JavaGenerator
 
+# This class, and it's 'process' method, is the public API to this library.
 
 class Fxml2j extends EventEmitter
 
@@ -24,7 +25,6 @@ class Fxml2j extends EventEmitter
       parser.on "done", (parser_obj) =>
         console.log('fxml parsed; controller: ' + parser_obj.controller + '  ui components: ' + parser_obj.ui_components.length)
         generator = new JavaGenerator(@config_obj, parser_obj)
-
         if @config_obj.generate
           generator.generate()
         if @config_obj.diff

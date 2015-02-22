@@ -27,9 +27,6 @@ class FxmlParser extends EventEmitter
     parser_opts.lowercase = true
     @sax_stream = sax.createStream(false, parser_opts) # <-- boolean 1st arg is 'strict' flag.
 
-  verbose: =>
-    @options.verbose
-
   parse: =>
     @sax_stream.on("opentag", (node_obj) =>  # node_obj has "name" and "attributes"
       @tag_stack.push(node_obj.name)
@@ -64,14 +61,14 @@ class FxmlParser extends EventEmitter
 
     @sax_stream.on("error", (err) =>
       @error = err
-      this.log('error: ' + JSON.stringify(err))
+      console.log('error: ' + JSON.stringify(err))
       @sax_stream.error = null
       @sax_stream.resume()
       this.finish()
     )
 
     @sax_stream.on("end", =>
-      this.log('end')
+      this.finish()
     )
       
     if @error
@@ -87,10 +84,6 @@ class FxmlParser extends EventEmitter
 
   curr_depth: ->
     @tag_stack.length
-
-  log: (msg) ->
-    if @options.verbose
-      console.log('FxmlParser: ' + msg)
 
   finish: =>
     event_obj = {}

@@ -27,6 +27,10 @@ class JavaGenerator
   generate: ->
     this.pre_generate()
 
+    console.log('controller_package:   ' + @controller_package)
+    console.log('controller_classname: ' + @controller_classname)
+    console.log('controller_filename:  ' + @controller_filename)
+    
     fs.writeFileSync(@generated_filename, @gen_lines.join("\n"), 'utf8')
     console.log('file written:         ' + @generated_filename)
 
@@ -83,10 +87,6 @@ class JavaGenerator
     @generated_filename   = this.determine_generated_filename()
 
     this.pre_process_ui_components()
-
-    console.log('controller_package:   ' + @controller_package)
-    console.log('controller_classname: ' + @controller_classname)
-    console.log('controller_filename:  ' + @controller_filename)
 
     # generate java code
     this.add_line(sprintf("package %s;", @controller_package))
