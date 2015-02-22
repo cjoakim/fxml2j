@@ -6,7 +6,8 @@ This library is for generating code for JavaFX applications which use FXML for U
 
 While FXML is a clean and convenient format for representing the UI layout of the application,
 current tooling (i.e. - SceneBuilder, et al) do not allow you to synchronize the FXML code
-to the underlying JavaFX Controller code.
+to the underlying JavaFX Controller code.  The underlying Java code can be quite verbose,
+and is tedious to manually write.
 
 The 'fxml2j' library will BOTH generate an implementation of the Java Controller class,
 as well as show you ongoing "diffs" between your FXML and Controller class as each of these
