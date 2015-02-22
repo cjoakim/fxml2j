@@ -23,9 +23,10 @@
     "generator"
   ],
   "dependencies": {
-    "sb-js":      "~0.1.1",
-    "sprintf-js": "~1.0.2",
-    "sax":        "~0.6.1"
+    "counter-hash-js": "~0.1.2",
+    "sb-js":           "~0.1.1",
+    "sprintf-js":      "~1.0.2",
+    "sax":             "~0.6.1"
   },
   "devDependencies": {
     "assert":               "^1.3.0",

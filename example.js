@@ -1,17 +1,19 @@
 (function() {
-  var Fxml2j, fxml, opts;
+  var Fxml2j, config_json, config_obj, fs, fxml, sprintf;
+
+  fs = require('fs');
+
+  sprintf = require("sprintf-js").sprintf;
 
   Fxml2j = require("./lib/fxml2j.js").Fxml2j;
 
-  opts = {};
+  config_json = fs.readFileSync('fxml2j.json', 'utf-8');
 
-  opts.javafx_src_dir = 'workspace/ExampleApp/src';
+  config_obj = JSON.parse(config_json);
 
-  opts.fxml_filename = 'com/joakim/example/Example.fxml';
+  console.log("config_obj:\n" + JSON.stringify(config_obj, null, 2));
 
-  opts.verbose = true;
-
-  fxml = new Fxml2j(opts);
+  fxml = new Fxml2j(config_obj);
 
   fxml.on("done", (function(_this) {
     return function(event_obj) {
@@ -19,6 +21,6 @@
     };
   })(this));
 
-  fxml.parse();
+  fxml.parse_and_generate();
 
 }).call(this);

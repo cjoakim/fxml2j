@@ -7,7 +7,8 @@ module.exports = function (grunt) {
         files: {
           'example.js':               ['src/example.coffee'],
           'lib/fxml2j.js':            ['src/fxml2j.coffee'],
-          'lib/fxml_parser.js':       ['src/fxml_parser.coffee']
+          'lib/fxml_parser.js':       ['src/fxml_parser.coffee'],
+          'lib/ui_component.js':      ['src/ui_component.coffee']
         }
       }
     },
