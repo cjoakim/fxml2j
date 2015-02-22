@@ -8,11 +8,8 @@ EventEmitter = require('events').EventEmitter
 class FxmlParser extends EventEmitter
 
   constructor: (xml_str, opts={}) ->
-    @sys_config    = new SysConfig()
-    @start_time_ms = @sys_config.curr_epoch_ms()
     @xml           = ('' + xml_str).toString().trim()
     @options       = opts
-    @root_tag      = 'prop_set'
     @tag_stack     = []
     @paths         = []
     @end_reached   = false
@@ -23,7 +20,7 @@ class FxmlParser extends EventEmitter
 
     parser_opts = {} # All default to false.
     parser_opts.trim = true
-    parser_opts.lowercase = true
+    parser_opts.lowercase = false
     @sax_stream = sax.createStream(false, parser_opts) # <-- boolean 1st arg is 'strict' flag.
 
   verbose: =>
@@ -38,59 +35,38 @@ class FxmlParser extends EventEmitter
       p = this.curr_path()
       d = this.curr_depth()
       if this.verbose()
-        msg = sprintf("FxmlParser on opentag: %s  path: %s  depth: %s", JSON.stringify(node), p, d)
+        msg = sprintf("opentag: %s  path: %s  depth: %s", JSON.stringify(node), p, d)
         this.log(msg)
-
-      switch p
-        when 'prop_set|prop'
-          @curr_prop_id = node.attributes['id'] # raw_val is a crazy value like "\\\"24000\\\"", use RegEx to fix these values
-          if @curr_prop_id
-            @curr_prop_id = @curr_prop_id.replace(/\\/g, '')
-            @curr_prop_id = @curr_prop_id.replace(/\"/g, '')
-          if this.verbose()
-            this.log('FxmlParser.startElement; curr_prop_id: ' + @curr_prop_id)
     )
 
     @sax_stream.on("closetag", (tag) =>
       p = this.curr_path()
       d = this.curr_depth()
 
-      if (d == 3) and (@curr_prop_id)
-        key = '' + @curr_prop_id
-        @props[key] = @curr_text
-        if this.verbose()
-          this.log('FxmlParser on closetag; d3: ' + key)
-
-      if d == 2
-        @curr_prop_id = undefined
+      if this.verbose()
+        this.log('closetag: ' + tag)
 
       @tag_stack.pop()
       @curr_tag  = undefined
       @curr_text = ''
-      if tag == @root_tag
-        @end_reached = true
-        if this.verbose()
-          this.log('FxmlParser; end root_tag encountered')
-        this.finish()
     )
 
     @sax_stream.on("text", (text) =>
       @curr_text = @curr_text + text
       if this.verbose()
-        this.log('FxmlParser on text: ' + text)
+        this.log('text: ' + text)
     )
 
     @sax_stream.on("error", (err) =>
       @error = err
-      this.log('FxmlParser on error: ' + JSON.stringify(err))
+      this.log('error: ' + JSON.stringify(err))
       @sax_stream.error = null
       @sax_stream.resume()
       this.finish()
     )
 
     @sax_stream.on("end", =>
-      if this.verbose()
-        this.log('FxmlParser on end')
+      this.log('end')
     )
       
     if @error
@@ -109,8 +85,7 @@ class FxmlParser extends EventEmitter
 
   log: (msg) ->
     if @options.verbose
-      IpcLogger.log(msg) if msg and (msg.length > 0)
-      @log_writes = @log_writes + 1
+      console.log('FxmlParser: ' + msg)
 
   finish: =>
     event_obj = {}
