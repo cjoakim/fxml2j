@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity"
+  minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0"
+  prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="com.joakim.example.ExampleController" >
+
+  <left>
+    <VBox prefHeight="784.0" prefWidth="133.0" spacing="4.0" BorderPane.alignment="CENTER">
+      <children>
+        <Label text="Computer User ID:" />
+        <Label fx:id="computerUserIdLabel"  styleClass="boldLabel" />
+        <Separator prefWidth="200.0" />
+        
+        <Label text="Web App User ID:" />
+        <Label fx:id="webAppUserIdLabel"  styleClass="boldLabel" />
+        <Separator prefWidth="200.0" />
+        
+        <Label text="Web Environment:" />
+        <Label fx:id="webEnvironmentLabel" styleClass="boldLabel" />
+        <Separator prefWidth="200.0" />
+        
+        <Label text="Operating System:" />
+        <Label fx:id="osNameLabel" />
+        <Separator prefWidth="200.0" />
+
+        <Label text="Build Timestamp:" />
+        <Label fx:id="buildTimestampLabel" />
+        <Separator prefWidth="200.0" />
+        
+        <Label text=" " />
+        
+        <Button fx:id="walkFilesBtn" mnemonicParsing="false" prefWidth="200.0"
+          onAction="#walkFilesBtnClicked" text="Walk Files" />
+        <Label text=" " />
+        
+        <Button fx:id="parseSelectedBtn" mnemonicParsing="false" prefWidth="200.0"
+          onAction="#parseSelectedBtnClicked" text="Parse Selected" />
+        <Label text=" " />
+        
+        <Button fx:id="parseAllBtn" mnemonicParsing="false" prefWidth="200.0"
+          onAction="#parseAllBtnClicked" text="Parse All" />
+        <Label text=" " />
+                  
+        <Separator prefWidth="200.0" />
+        
+        <Label text=" " />
+        
+        <Button fx:id="getWebMetadataBtn" mnemonicParsing="false" prefWidth="200.0"
+          onAction="#getWebMetadataBtnClicked" text="Get Web Metadata" />
+        <Label text=" " />
+        
+        <Button fx:id="postSelectedBtn" mnemonicParsing="false" prefWidth="200.0"
+          onAction="#postSelectedBtnClicked" text="Post Selected" />
+        <Label text=" " />
+        
+        <Button fx:id="postAllBtn" mnemonicParsing="false" prefWidth="200.0"
+          onAction="#postAllBtnClicked" text="Post All" />
+        <Label text=" " />
+        
+      </children>
+      <BorderPane.margin>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="40.0" />
+      </BorderPane.margin>
+    </VBox>
+  </left>
+
+  <center>
+    <TabPane fx:id="mainTabPane" tabMinWidth="300" >
+      <tabs>
+        <Tab fx:id="partsListTab" text="Parts List" closable="false">
+          <content>
+            <BorderPane xmlns:fx="http://javafx.com/fxml/1">
+              <center>
+                <TableView fx:id="partsTableView" prefHeight="200.0" prefWidth="200.0"
+                  BorderPane.alignment="CENTER" onMouseClicked="#partsTableViewClicked">
+                  <columns>
+                    <TableColumn text=""                  fx:id="partsTableViewSeq"    styleClass="centeredColumn" />
+                    <TableColumn text=""                  fx:id="partsTableViewDiff"   styleClass="centeredColumn" />
+                    <TableColumn text=""                  fx:id="partsTableViewDup"    styleClass="centeredColumn" />
+                    <TableColumn text="Common"            fx:id="partsTableViewCommon" styleClass="centeredColumn"/>
+                    <TableColumn text="Partname"          fx:id="partsTableViewPartname" />
+                       <TableColumn text="Filename"          fx:id="partsTableViewFilename" />
+                       <TableColumn text="Modification Date" fx:id="partsTableViewModDate" />
+                       <TableColumn text="Filesize"          fx:id="partsTableViewFilesize" styleClass="centeredColumn" />
+                  </columns>
+                </TableView>
+              </center>
+            </BorderPane>
+          </content>
+        </Tab>
+        <Tab fx:id="partDetailsTab" text="Part Details" closable="false">
+          <content>
+            <BorderPane>
+              <top>
+                <GridPane alignment="center" hgap="10" vgap="10" prefWidth="900" >
+                  <padding>
+                    <Insets top="25" right="25" bottom="10" left="25" />
+                  </padding>
+
+                  <Text      GridPane.columnIndex="0"     GridPane.rowIndex="0"  />  
+
+                  <Label     text="Filename:"             GridPane.rowIndex="1" GridPane.columnIndex="0"  />
+                  <TextField fx:id="detailFilenameTF"     GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="500" editable="false" />
+
+                  <Label     text="Local Partname:"       GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                  <TextField fx:id="detailLocPartnameTF"  GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="500" editable="false" />
+  
+                  <Label     text="Web App Partname:"     GridPane.rowIndex="3" GridPane.columnIndex="0"  />
+                  <TextField fx:id="detailWebPartnameTF"  GridPane.rowIndex="3" GridPane.columnIndex="1" prefWidth="500" editable="false" />
+                  
+                  <Label     text="Local Filesize:"       GridPane.rowIndex="4" GridPane.columnIndex="0" />
+                  <TextField fx:id="detailLocFilesizeTF"  GridPane.rowIndex="4" GridPane.columnIndex="1" prefWidth="500" editable="false" />
+  
+                  <Label     text="Web App Filesize:"     GridPane.rowIndex="5" GridPane.columnIndex="0"  />
+                  <TextField fx:id="detailWebFilesizeTF"  GridPane.rowIndex="5" GridPane.columnIndex="1" prefWidth="500" editable="false" />
+                  
+                  <Label     text="Local Common:"         GridPane.rowIndex="6" GridPane.columnIndex="0" />
+                  <TextField fx:id="detailLocCommonTF"    GridPane.rowIndex="6" GridPane.columnIndex="1" prefWidth="500" editable="false" />
+  
+                  <Label     text="Web App Common:"       GridPane.rowIndex="7" GridPane.columnIndex="0"  />
+                  <TextField fx:id="detailWebCommonTF"    GridPane.rowIndex="7" GridPane.columnIndex="1" prefWidth="500" editable="false" />
+
+                  <Label     text="Local TV Sizes:"       GridPane.rowIndex="8" GridPane.columnIndex="0" />
+                  <TextField fx:id="detailLocTvSizesTF"   GridPane.rowIndex="8" GridPane.columnIndex="1" prefWidth="500" editable="false" />
+  
+                  <Label     text="Web App TV Sizes:"     GridPane.rowIndex="9" GridPane.columnIndex="0"  />
+                  <TextField fx:id="detailWebTvSizesTF"   GridPane.rowIndex="9" GridPane.columnIndex="1" prefWidth="500" editable="false" />
+                  
+                  <Label     text="Local Mod Time:"       GridPane.rowIndex="10" GridPane.columnIndex="0" />
+                  <TextField fx:id="detailLocModTimeTF"   GridPane.rowIndex="10" GridPane.columnIndex="1" prefWidth="500" editable="false" />
+  
+                  <Label     text="Web App Mod Time:"     GridPane.rowIndex="11" GridPane.columnIndex="0"  />
+                  <TextField fx:id="detailWebModTimeTF"   GridPane.rowIndex="11" GridPane.columnIndex="1" prefWidth="500" editable="false" />    
+                </GridPane>
+              </top>
+            </BorderPane>
+          </content>
+        </Tab>
+        <Tab fx:id="configurationTab" text="Configuration" closable="false" >
+          <content>
+            <BorderPane>
+              <top>
+                <GridPane alignment="center" hgap="10" vgap="10" prefWidth="900" >
+                  <padding>
+                    <Insets top="25" right="25" bottom="10" left="25" />
+                  </padding>
+
+                  <Text      fx:id="readOnlyGroupText" text="Read-Only Configuration Values:" GridPane.columnIndex="0" GridPane.rowIndex="0"  GridPane.columnSpan="4" />  
+                  
+                  <Label     text="Node Location:"      GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                  <TextField fx:id="nodeLocationTF"     GridPane.columnIndex="1" GridPane.rowIndex="1"  prefWidth="500" editable="false" />
+                
+                  <Label     text="Parts App Location:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                  <TextField fx:id="appLocationTF"      GridPane.columnIndex="1" GridPane.rowIndex="2"  prefWidth="500" editable="false" />
+
+                  <Label     text="Parts Drawings Location:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                  <TextField fx:id="drawingsLocationTF"      GridPane.columnIndex="1" GridPane.rowIndex="3"  prefWidth="500" editable="false" />
+    
+                  <Text text="" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="4" />
+
+                  <Label     text="Production Web URL:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                  <TextField fx:id="webProductionUrlTF" GridPane.columnIndex="1" GridPane.rowIndex="5"  prefWidth="500" editable="false" />
+                    
+                  <Label     text="Staging Web URL:"    GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                  <TextField fx:id="webStagingUrlTF"    GridPane.columnIndex="1" GridPane.rowIndex="6"  prefWidth="500" editable="false" />
+                  
+                  <Label     text="Local Web URL:"    GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                  <TextField fx:id="webLocalUrlTF"    GridPane.columnIndex="1" GridPane.rowIndex="7"  prefWidth="500" editable="false" />
+                      
+                  <Separator prefWidth="200.0"           GridPane.rowIndex="9"  GridPane.columnSpan="4" />
+
+                  <Text fx:id="userEditableGroupText" text="User-Editable Configuration Values:" GridPane.columnIndex="0" GridPane.rowIndex="11"  GridPane.columnSpan="4" />  
+                                
+                  <Label     text="Web Environment:" GridPane.columnIndex="0" GridPane.rowIndex="12" />
+                  <ComboBox  fx:id="webEnvironmentsCbox"  onAction="#webEnvironmentSelected"  GridPane.columnIndex="1" GridPane.rowIndex="12" prefWidth="200" />
+                  
+                  <Label     text="Web App User ID:"   GridPane.columnIndex="0" GridPane.rowIndex="13" />
+                  <TextField fx:id="webAppUserIdTF"    GridPane.columnIndex="1" GridPane.rowIndex="13"  prefWidth="500" editable="true" />
+      
+                  <Label     text="Web App Password:"     GridPane.columnIndex="0" GridPane.rowIndex="14" />
+                  <TextField fx:id="webAppPasswordTF" GridPane.columnIndex="1" GridPane.rowIndex="14"  prefWidth="500" />
+
+                  <Text      text="" GridPane.columnIndex="0" GridPane.rowIndex="15" GridPane.columnSpan="3" />
+                  
+                  <Button fx:id="saveWebCredentialsBtn"
+                    GridPane.columnIndex="1" GridPane.rowIndex="16"
+                    mnemonicParsing="false" prefWidth="300.0"
+                    onAction="#saveWebCredentialsBtnClicked" text="Save Web Credentials for Target Environment" />
+          
+                  <Text text="" GridPane.columnIndex="0" GridPane.rowIndex="17" GridPane.columnSpan="3" />
+                  
+                  <Button fx:id="testLogonBtn"
+                    GridPane.columnIndex="1" GridPane.rowIndex="18"
+                    mnemonicParsing="false" prefWidth="300.0"
+                    onAction="#testLogonBtnClicked" text="Test Logon to Selected Web Environment" />
+                    
+                </GridPane>
+              </top>
+            </BorderPane>
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
+  </center>
+
+  <bottom>
+    <Label fx:id="statusMessageLabel" styleClass="statusMessage" prefHeight="40.0" text="" textAlignment="CENTER" BorderPane.alignment="BOTTOM_CENTER" />
+  </bottom>
+
+</BorderPane>

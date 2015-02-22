@@ -13,6 +13,6 @@
     };
   })(this));
 
-  fxml.generate();
+  fxml.parse();
 
 }).call(this);
