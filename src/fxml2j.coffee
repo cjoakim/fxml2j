@@ -18,7 +18,7 @@ class Fxml2j extends EventEmitter
     @fxml_filename  = @javafx_src_dir + path.sep + @fxml_filename
     @finish_obj     = {}
 
-  parse_and_generate: ->
+  generate: ->
     if @fxml_filename
       xml_str = fs.readFileSync(@fxml_filename, 'utf-8')
       parser  = new FxmlParser(xml_str, @config_obj)
@@ -32,6 +32,22 @@ class Fxml2j extends EventEmitter
       parser.parse()
     else
       @finish_obj.error = 'fxml_filename does not exist: ' + fxml_filename
+
+  diff: ->
+    if @fxml_filename
+      xml_str = fs.readFileSync(@fxml_filename, 'utf-8')
+      parser  = new FxmlParser(xml_str, @config_obj)
+      parser.on "done", (parse_event_obj) =>
+        @finish_obj.parse_event_obj = parse_event_obj
+        console.log('fxml parsed; controller is:    ' + parse_event_obj.controller)
+        console.log('fxml parsed; fx:id components: ' + parse_event_obj.ui_components.length)
+        generator = new JavaGenerator(@config_obj, parse_event_obj)
+        generator.diff()
+        this.finish()
+      parser.parse()
+    else
+      @finish_obj.error = 'fxml_filename does not exist: ' + fxml_filename
+
 
   finish: =>
     this.emit('done', @finish_obj)

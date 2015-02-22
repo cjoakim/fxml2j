@@ -5,18 +5,14 @@
   "verbose": true,
 
   "multiWordTagMappings": {
-    "borderpane":  "BorderPane",
-    "combobox":    "ComboBox",
-    "gridpane":    "GridPane",
-    "tablecolumn": "TableColumn",
-    "tableview":   "TableView",
-    "tabpane":     "Tabpane",
-    "textfield":   "TextField"
-  },
-
-  "eventMappings": {
-    "default":     "ActionEvent",
-    "combobox":    "MouseEvent"
+    "borderpane":    "BorderPane",
+    "combobox":      "ComboBox",
+    "gridpane":      "GridPane",
+    "tablecolumn":   "TableColumn",
+    "tableview":     "TableView",
+    "tabpane":       "TabPane",
+    "textfield":     "TextField",
+    "addadditional": "AddAdditional"
   }
 }
 

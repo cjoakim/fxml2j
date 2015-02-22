@@ -25,6 +25,59 @@ class JavaGenerator
     @fxml_tag_hash   = new CounterHash()
 
   generate: ->
+    this.pre_generate()
+
+    fs.writeFileSync(@generated_filename, @gen_lines.join("\n"), 'utf8')
+    console.log('file written:         ' + @generated_filename)
+
+  diff: ->
+    this.pre_generate()
+
+    gen_fxml_lines  = []
+    gen_fxml_obj    = {}
+    curr_fxml_lines = []
+    curr_fxml_obj   = {}
+    adds    = []
+    deletes = []
+
+    for line in @gen_lines
+      if line
+        if line.indexOf('@FXML') > 0
+          trimmed = line.trim()
+          gen_fxml_lines.push(trimmed)
+          gen_fxml_obj[trimmed] = true
+
+    this.read_current_controller_file()  
+    for line in @curr_src_lines
+      if line
+        if line.indexOf('@FXML') > 0
+          trimmed = line.trim()
+          curr_fxml_lines.push(trimmed)
+          curr_fxml_obj[trimmed] = true
+
+
+    for line in gen_fxml_lines
+      if curr_fxml_obj[line]
+        # it already exists
+      else
+        adds.push(line)
+
+    for line in curr_fxml_lines
+      if gen_fxml_obj[line]
+        # it should be retained
+      else
+        deletes.push(line)
+
+
+    console.log('Differences - Add - ' + adds.length)
+    for line in adds
+      console.log('    ' + line)
+    console.log('Differences - Delete - ' + deletes.length)
+    for line in deletes
+      console.log('    ' + line)
+
+
+  pre_generate: ->
     @controller_package   = this.determine_controller_package()
     @controller_classname = this.determine_controller_classname()
     @controller_filename  = this.determine_controller_filename()
@@ -48,10 +101,11 @@ class JavaGenerator
 
     this.add_line('    // Instance variables - fx:id UI components:')
     for c in @ui_components
-      this.add_line(sprintf("    @FXML private %-16s %s;", c.fxml_tag, c.fxid))
+      if c.fxid
+        this.add_line(sprintf("    @FXML private %-16s %s;", c.fxml_tag, c.fxid))
 
     this.add_newline()
-    this.add_line('    // Handler methods:')
+    this.add_line('    // UI Event Handler methods:')
     for c in @ui_components
       if c.on_method
         this.add_newline()
@@ -62,9 +116,7 @@ class JavaGenerator
     this.add_newline()
     this.add_line('}')
     this.add_newline()
-
-    fs.writeFileSync(@generated_filename, @gen_lines.join("\n"), 'utf8')
-    console.log('file written:         ' + @generated_filename)
+    console.log('pre_generate completed; lines: ' + @gen_lines.length)
 
   determine_controller_package: ->
     tokens = @controller.split('.')
@@ -97,7 +149,6 @@ class JavaGenerator
 
     for c in @ui_components
       @fxml_tag_hash.increment(c.fxml_tag)
-
 
   read_current_controller_file: ->
     if fs.existsSync(@controller_filename)

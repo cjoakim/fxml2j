@@ -13,15 +13,16 @@
 
   console.log("config_obj:\n" + JSON.stringify(config_obj, null, 2));
 
+  console.log('generate...');
+
   fxml = new Fxml2j(config_obj);
 
-  fxml.on("done", (function(_this) {
-    return function(event_obj) {
-      console.log('done');
-      return console.log("Fxml2j.parse obj:\n" + JSON.stringify(event_obj, null, 2));
-    };
-  })(this));
+  fxml.generate();
 
-  fxml.parse_and_generate();
+  console.log('diff...');
+
+  fxml = new Fxml2j(config_obj);
+
+  fxml.diff();
 
 }).call(this);

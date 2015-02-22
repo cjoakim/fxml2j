@@ -17,8 +17,6 @@ public class ExampleController {
     @FXML private Label            computerUserIdLabel;
     @FXML private Label            webAppUserIdLabel;
     @FXML private Label            webEnvironmentLabel;
-    @FXML private Label            osNameLabel;
-    @FXML private Label            buildTimestampLabel;
     @FXML private Button           walkFilesBtn;
     @FXML private Button           parseSelectedBtn;
     @FXML private Button           parseAllBtn;
@@ -35,7 +33,6 @@ public class ExampleController {
     @FXML private TableColumn      partsTableViewPartname;
     @FXML private TableColumn      partsTableViewFilename;
     @FXML private TableColumn      partsTableViewModDate;
-    @FXML private TableColumn      partsTableViewFilesize;
     @FXML private Tab              partDetailsTab;
     @FXML private TextField        detailFilenameTF;
     @FXML private TextField        detailLocPartnameTF;
@@ -57,7 +54,7 @@ public class ExampleController {
     @FXML private TextField        webStagingUrlTF;
     @FXML private TextField        webLocalUrlTF;
     @FXML private Text             userEditableGroupText;
-    @FXML private ComboBox         webEnvironmentsCbox;
+    @FXML private ComboBox         webEnvironmentsOldnameCbox;
     @FXML private TextField        webAppUserIdTF;
     @FXML private TextField        webAppPasswordTF;
     @FXML private Button           saveWebCredentialsBtn;
