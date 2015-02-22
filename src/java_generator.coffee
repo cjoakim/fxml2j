@@ -76,7 +76,6 @@ class JavaGenerator
     for line in deletes
       console.log('    ' + line)
 
-
   pre_generate: ->
     @controller_package   = this.determine_controller_package()
     @controller_classname = this.determine_controller_classname()
@@ -116,7 +115,6 @@ class JavaGenerator
     this.add_newline()
     this.add_line('}')
     this.add_newline()
-    console.log('pre_generate completed; lines: ' + @gen_lines.length)
 
   determine_controller_package: ->
     tokens = @controller.split('.')

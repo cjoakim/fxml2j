@@ -1,9 +1,7 @@
 (function() {
-  var Fxml2j, config_json, config_obj, fs, fxml, sprintf;
+  var Fxml2j, config_json, config_obj, fs, fxml;
 
   fs = require('fs');
-
-  sprintf = require("sprintf-js").sprintf;
 
   Fxml2j = require("./lib/fxml2j.js").Fxml2j;
 
@@ -11,18 +9,12 @@
 
   config_obj = JSON.parse(config_json);
 
-  console.log("config_obj:\n" + JSON.stringify(config_obj, null, 2));
+  console.log('');
 
-  console.log('generate...');
-
-  fxml = new Fxml2j(config_obj);
-
-  fxml.generate();
-
-  console.log('diff...');
+  console.log("process, with both 'generate' and 'diff', per config_obj");
 
   fxml = new Fxml2j(config_obj);
 
-  fxml.diff();
+  fxml.process();
 
 }).call(this);

@@ -2,7 +2,9 @@
   "javafx_src_dir": "workspace/ExampleApp/src",
   "fxml_filename":  "com/joakim/example/Example.fxml",
 
-  "verbose": true,
+  "generate": true,
+  "diff":     true,
+  "verbose":  true,
 
   "multiWordTagMappings": {
     "borderpane":    "BorderPane",
