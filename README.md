@@ -58,16 +58,18 @@ JavaFX codebase.  This examples shows an Eclipse workspace location.
 
 The 'fxml_filename' property points to your main FXML file relative to the 'javafx_src_dir'.
 The current version of fxml2j does not handle fx:include tags, but this will be added
-in a future release.  
+in a future release.  The Example.fxml is in this GitHub repository.
 
-Only one Controller class is supported by fxml2j.  This classname is obtained by parsing
-the FXML and identifying the 'fx:controller'.  The generated controller code is written
-as a *.txt file in the controller directory - see example output filenames below.
+Only one Controller class is currently supported by fxml2j.  This classname is obtained by
+parsing the FXML and identifying the 'fx:controller'.  The generated controller code is
+written as a *.txt file in the controller directory - see example output filenames below.
+This is so that it does not overlay the current corresponding *.java file.
 
 Note: this library is implemented with CoffeeScript, and these examples are also in CoffeeScript.
 
 #### Fxml2j
 
+Using the fxml2j library:
 
 ``` 
 Fxml2j = require("./lib/fxml2j.js").Fxml2j
@@ -103,7 +105,9 @@ Differences - Delete - 1
 ```
 
 With these diffs identified, the intent is for you to copy-and-paste the Added code
-into your controller, while manually deleting the identified Deletions.
+into your controller, while manually deleting the identified Deletions.  In cases
+where the Controller class does not exist, simply rename the generated "*.txt" file
+to "*.java".
 
 
 ### Release History
