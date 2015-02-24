@@ -82,7 +82,12 @@ fxml = new Fxml2j(config_obj)
 fxml.process()
 ```
 
-Example output from the above:
+Example output from the above CoffeeScript code is shown below.
+
+Notice that the differences between the FXML and the correspondingare Java Controller
+class are identified.  The fxml2j library currently requires, for ease of parsing,
+that your @FXML annotations are "inlined" into your variable and method declaration lines.
+
 ```
 fxml parsed; controller: com.joakim.example.ExampleController  ui components: 50
 controller_package:   com.joakim.example
@@ -90,6 +95,7 @@ controller_classname: ExampleController
 controller_filename:  workspace/ExampleApp/src/com/joakim/example/ExampleController.java
 file written:         workspace/ExampleApp/src/com/joakim/example/ExampleController.txt
 the controller file currently exists, line count: 103
+
 Differences - Add - 10
     @FXML private Label            osNameLabel;
     @FXML private Label            buildTimestampLabel;
@@ -105,6 +111,63 @@ Differences - Delete - 1
     @FXML private ComboBox         webEnvironmentsOldnameCbox;
 ```
 
+Example FXML code.  The 'fx:controller' and 'fx:id' components are parsed by fxml2j,
+as are the onXxxx="#xxx" event handler method names.
+
+```
+...
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity"
+  minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0"
+  prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="com.joakim.example.ExampleController" >
+
+...
+
+        <Button fx:id="postSelectedBtn" mnemonicParsing="false" prefWidth="200.0"
+          onAction="#postSelectedBtnClicked" text="Post Selected" />
+        <Label text=" " />
+
+...
+
+```
+
+Example Generated Java code:
+
+```
+
+package com.joakim.example;
+
+import javafx.scene.control.BorderPane;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.Text;
+import javafx.scene.control.TextField;
+
+public class ExampleController {
+
+    // Instance variables - fx:id UI components:
+    
+    ...
+    
+    @FXML private Button           postSelectedBtn;
+
+
+    ...
+
+    @FXML public void postSelectedBtnClicked(ActionEvent e) {
+
+    }
+
+    ...
+}
+```
+
 With these diffs identified, the intent is for you to copy-and-paste the Added code
 into your controller, while manually deleting the identified Deletions.  In cases
 where the Controller class does not exist, simply rename the generated "*.txt" file
@@ -113,4 +176,5 @@ to "*.java".
 
 ### Release History
 
+* 2015-02-24   v0.1.1  README updated with example FXML and Java code
 * 2015-02-22   v0.1.0  initial working version

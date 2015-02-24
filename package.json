@@ -1,6 +1,6 @@
 {
   "name":    "fxml2j",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "JavaFX FXML parser and corresponding Java code generator.",
   "author":  "Chris Joakim",
   "main":    "main.js",
