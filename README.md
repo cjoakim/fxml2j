@@ -176,5 +176,6 @@ to "*.java".
 
 ### Release History
 
+* 2015-03-03   v0.1.2  Fixed main in package.json
 * 2015-02-24   v0.1.1  README updated with example FXML and Java code
 * 2015-02-22   v0.1.0  initial working version

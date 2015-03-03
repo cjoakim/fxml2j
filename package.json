@@ -1,9 +1,9 @@
 {
   "name":    "fxml2j",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "JavaFX FXML parser and corresponding Java code generator.",
   "author":  "Chris Joakim",
-  "main":    "main.js",
+  "main":    "lib/fxml2j.js",
   "licenses": [
     {
       "type": "ISC",
